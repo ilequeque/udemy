@@ -1,25 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using udemy.Data;
-using udemy.Models;
+﻿using DataAccess.Data;
+using DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Mvc;
+using Models;
 
 namespace udemy.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+        private readonly IUnitOfWork _unitofwork;
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitofwork = unitOfWork;
         }
         public IActionResult Index()
         {
-            IEnumerable<Category> objCategoryList = _db.Categories;
+            IEnumerable<Category> objCategoryList = _unitofwork.Category.GetAll();
             return View(objCategoryList);
         }
         //GET
         public IActionResult Create()
         {
-
             return View();
         }
 
@@ -34,8 +34,8 @@ namespace udemy.Controllers
             }
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                _unitofwork.Category.Add(obj);
+                _unitofwork.Save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
@@ -49,7 +49,7 @@ namespace udemy.Controllers
             {
                 return NotFound();
             }
-            var category = _db.Categories.FirstOrDefault(c => c.Id == id);
+            var category = _unitofwork.Category.GetFirstOrDefault(c => c.Id == id);
             
             if(category == null)
             {
@@ -70,8 +70,8 @@ namespace udemy.Controllers
             }
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _unitofwork.Category.Update(obj);
+                _unitofwork.Save();
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
             }
@@ -85,7 +85,7 @@ namespace udemy.Controllers
             {
                 return NotFound();
             }
-            var category = _db.Categories.FirstOrDefault(c => c.Id == id);
+            var category = _unitofwork.Category.GetFirstOrDefault(c => c.Id == id);
 
             if (category == null)
             {
@@ -100,14 +100,14 @@ namespace udemy.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {
-            var temp = _db.Categories.FirstOrDefault(c => c.Id == id);
+            var temp = _unitofwork.Category.GetFirstOrDefault(c => c.Id == id);
             if (temp == null)
             {
                 return NotFound();
             }
 
-            _db.Categories.Remove(temp);
-            _db.SaveChanges();
+            _unitofwork.Category.Remove(temp);
+            _unitofwork.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
             
