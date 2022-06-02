@@ -17,6 +17,7 @@ namespace DataAccess.Repository
         public Repository(ApplicationDbContext db)
         {
             _db = db;
+            //_db.Products.Include(u => u.Category).Include(u=>u.CoverType);
             this.dbset = _db.Set<T>();
         }
         public void Add(T entity)
@@ -24,17 +25,30 @@ namespace DataAccess.Repository
             dbset.Add(entity);
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(string? includeProperties = null)
         {
             IQueryable<T> query = dbset;
+            if (includeProperties != null)
+            {
+                foreach(var includeProp in includeProperties.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
             return query.ToList();
         }
 
-        public T GetFirstOrDefault(Expression<Func<T, bool>> filter)
+        public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbset;
             query= query.Where(filter);
-            
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
             return query.FirstOrDefault();
         }
 

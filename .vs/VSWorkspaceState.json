@@ -2,10 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\udemy",
+    "\\udemy\\DataAccess",
+    "\\udemy\\DataAccess\\Data",
     "\\udemy\\udemy",
     "\\udemy\\udemy\\Views",
     "\\udemy\\udemy\\Views\\Shared"
   ],
-  "SelectedNode": "\\udemy\\udemy\\Views\\Shared\\_Layout.cshtml",
+  "SelectedNode": "\\udemy\\udemy\\Properties",
   "PreviewInSolutionExplorer": false
 }
