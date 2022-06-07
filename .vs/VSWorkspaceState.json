@@ -5,9 +5,13 @@
     "\\udemy\\DataAccess",
     "\\udemy\\DataAccess\\Data",
     "\\udemy\\udemy",
+    "\\udemy\\udemy\\Areas",
+    "\\udemy\\udemy\\Areas\\Customer",
+    "\\udemy\\udemy\\Areas\\Customer\\Views",
+    "\\udemy\\udemy\\Areas\\Customer\\Views\\Cart",
     "\\udemy\\udemy\\Views",
     "\\udemy\\udemy\\Views\\Shared"
   ],
-  "SelectedNode": "\\udemy\\udemy\\Properties",
+  "SelectedNode": "\\udemy\\udemy\\Areas\\Customer\\Views\\Cart\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }
