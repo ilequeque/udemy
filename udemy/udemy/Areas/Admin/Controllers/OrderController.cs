@@ -149,7 +149,7 @@ namespace udemy.Areas.Admin.Controllers
             var orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(x => x.Id == OrderVm.OrderHeader.Id, tracked: false);
             orderHeader.TrackingNumber = OrderVm.OrderHeader.TrackingNumber;
             orderHeader.Carrier = OrderVm.OrderHeader.Carrier;
-            orderHeader.OrderStatus = OrderVm.OrderHeader.OrderStatus;
+            orderHeader.OrderStatus = SD.StatusShipped;
             orderHeader.ShippingDate = DateTime.Now;
             if (orderHeader.OrderStatus == SD.PaymentStatusDelayedPayment)
             {
