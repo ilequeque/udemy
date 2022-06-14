@@ -4,7 +4,28 @@
     ViewData["Title"] = "Manage your external logins";
     ViewData["ActivePage"] = ManageNavPages.ExternalLogins;
 }
+<main role="main" class="pb-3">
+			
 
+			
+<h1>Manage your account</h1>
+
+<div>
+    <h2>Change your account settings</h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+    <li class="nav-item"><a class="nav-link" id="profile" href="/Identity/Account/Manage">Profile</a></li>
+    <li class="nav-item"><a class="nav-link" id="email" href="/Identity/Account/Manage/Email">Email</a></li>
+    <li class="nav-item"><a class="nav-link" id="change-password" href="/Identity/Account/Manage/ChangePassword">Password</a></li>
+        <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link active" href="/Identity/Account/Manage/ExternalLogins">External logins</a></li>
+    <li class="nav-item"><a class="nav-link" id="two-factor" href="/Identity/Account/Manage/TwoFactorAuthentication">Two-factor authentication</a></li>
+    <li class="nav-item"><a class="nav-link" id="personal-data" href="/Identity/Account/Manage/PersonalData">Personal data</a></li>
+</ul>
+
+        </div>
+        <div class="col-md-9">
 <partial name="_StatusMessage" for="StatusMessage" />
 @if (Model.CurrentLogins?.Count > 0)
 {
@@ -36,6 +57,13 @@
         </tbody>
     </table>
 }
+        </div>
+    </div>
+</div>
+
+
+		</main>
+
 @if (Model.OtherLogins?.Count > 0)
 {
     <h4>Add another service to log in.</h4>

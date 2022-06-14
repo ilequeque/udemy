@@ -5,6 +5,7 @@ using Models;
 using Models.ViewModels;
 using System.Diagnostics;
 using System.Security.Claims;
+using Utility;
 
 namespace udemy.Controllers
 {
@@ -53,12 +54,15 @@ namespace udemy.Controllers
             if (cart == null)
             {
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart,
+                    _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).ToList().Count);
             }
             else
             {
                 _unitOfWork.ShoppingCart.IncrementCount(cart, shoppingCart.Count);
+                _unitOfWork.Save();
             }
-            _unitOfWork.Save();
 
             return RedirectToAction(nameof(Index));
         }
